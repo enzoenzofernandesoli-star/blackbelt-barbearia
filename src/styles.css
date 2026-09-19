@@ -66,15 +66,24 @@ a:focus-visible { outline: 2px solid var(--vermelho); outline-offset: 5px; }
 .manifesto div > p { color: var(--cinza); line-height: 1.8; max-width: 580px; margin: 38px 0 0 35%; }
 .manifesto__icone { width: 110px; height: 110px; color: #343434; transform: rotate(-40deg); }
 
-.servicos { padding: clamp(80px, 10vw, 150px) clamp(28px, 7vw, 110px); background: var(--branco); color: #101010; }
+.servicos {
+  padding: clamp(80px, 10vw, 150px) clamp(28px, 7vw, 110px);
+  background:
+    radial-gradient(circle at 82% 18%, rgba(204, 41, 41, .08), transparent 29%),
+    repeating-linear-gradient(135deg, transparent 0 19px, rgba(255,255,255,.012) 19px 20px),
+    #111111;
+  color: var(--branco);
+  border-top: 1px solid var(--linha);
+  border-bottom: 1px solid var(--linha);
+}
 .secao-cabecalho { display: grid; grid-template-columns: 1.5fr .55fr; gap: 70px; align-items: end; margin-bottom: 75px; }
-.secao-cabecalho > p { color: #5c5b57; line-height: 1.75; font-size: 14px; max-width: 380px; }
-.lista-servicos { border-top: 1px solid #bdbab3; }
-.servico { min-height: 152px; border-bottom: 1px solid #bdbab3; display: grid; grid-template-columns: 90px minmax(180px,.65fr) 1fr 70px; gap: 30px; align-items: center; }
+.secao-cabecalho > p { color: var(--cinza); line-height: 1.75; font-size: 14px; max-width: 380px; }
+.lista-servicos { border-top: 1px solid var(--linha); }
+.servico { min-height: 152px; border-bottom: 1px solid var(--linha); display: grid; grid-template-columns: 90px minmax(180px,.65fr) 1fr 70px; gap: 30px; align-items: center; }
 .servico > span { font-family: "Barlow Condensed", sans-serif; font-weight: 700; color: var(--vermelho); }
 .servico h3 { font-family: "Barlow Condensed", sans-serif; text-transform: uppercase; font-size: clamp(36px, 4vw, 66px); letter-spacing: -.025em; margin: 0; }
-.servico p { max-width: 510px; margin: 0; color: #66645f; font-size: 13px; line-height: 1.65; }
-.servico a { justify-self: end; width: 48px; height: 48px; display: grid; place-items: center; border: 1px solid #aaa7a0; border-radius: 50%; }
+.servico p { max-width: 510px; margin: 0; color: var(--cinza); font-size: 13px; line-height: 1.65; }
+.servico a { justify-self: end; width: 48px; height: 48px; display: grid; place-items: center; border: 1px solid rgba(244,242,237,.28); border-radius: 50%; }
 .servico a:hover { background: var(--vermelho); color: #fff; border-color: var(--vermelho); }
 
 .espaco { display: grid; grid-template-columns: .8fr 1.2fr; min-height: 760px; }
