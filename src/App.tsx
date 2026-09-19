@@ -1,4 +1,5 @@
-import { ArrowDownRight, ArrowUpRight, Camera, MapPin, Phone, Scissors, Star } from "lucide-react";
+import { useState } from "react";
+import { ArrowDownRight, ArrowUpRight, Camera, Check, MapPin, Phone, Scissors, Star } from "lucide-react";
 import { Logo } from "./components/Logo";
 import { barbearia } from "./data/barbearia";
 
@@ -9,6 +10,9 @@ const imagens = [
 ];
 
 export default function App() {
+  const [servicoSelecionado, setServicoSelecionado] = useState(0);
+  const servicoAtual = barbearia.servicos[servicoSelecionado];
+
   return (
     <div className="site-shell">
       <header className="cabecalho">
@@ -63,15 +67,34 @@ export default function App() {
             <div><p className="rotulo">ESCOLHA SEU RITUAL</p><h2>Cuidado com<br />mentalidade de mestre.</h2></div>
             <p>Serviços pensados para transformar cuidado pessoal em constância — sem pressa, sem atalhos.</p>
           </div>
-          <div className="lista-servicos">
+          <div className="lista-servicos" role="radiogroup" aria-label="Escolha um serviço">
             {barbearia.servicos.map((servico, indice) => (
-              <article className="servico" key={servico.nome}>
+              <button
+                className={`servico${servicoSelecionado === indice ? " servico--selecionado" : ""}`}
+                type="button"
+                role="radio"
+                aria-checked={servicoSelecionado === indice}
+                onClick={() => setServicoSelecionado(indice)}
+                key={servico.nome}
+              >
                 <span>0{indice + 1}</span>
                 <h3>{servico.nome}</h3>
                 <p>{servico.descricao}</p>
-                <a href={barbearia.agendamentoUrl} target="_blank" rel="noreferrer" aria-label={`Agendar ${servico.nome}`}><ArrowUpRight aria-hidden="true" /></a>
-              </article>
+                <span className="servico__indicador" aria-hidden="true">
+                  {servicoSelecionado === indice ? <Check /> : <ArrowUpRight />}
+                </span>
+              </button>
             ))}
+          </div>
+          <div className="servicos__selecao" aria-live="polite">
+            <div>
+              <small>RITUAL SELECIONADO</small>
+              <strong>{servicoAtual.nome}</strong>
+              <span>Próximo passo: escolha profissional, dia e horário.</span>
+            </div>
+            <a className="botao" href={barbearia.agendamentoUrl} target="_blank" rel="noreferrer">
+              Agendar {servicoAtual.nome.toLowerCase()} <ArrowUpRight size={18} aria-hidden="true" />
+            </a>
           </div>
         </section>
 
