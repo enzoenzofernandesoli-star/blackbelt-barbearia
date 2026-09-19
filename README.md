@@ -17,7 +17,7 @@ Os dados do negócio ficam centralizados em `src/data/barbearia.ts`.
 - Cashbarber: manifesto, programa de assinaturas e fotografias do estabelecimento.
 - Instagram: link oficial informado na ficha do Google Maps.
 
-As fotografias são servidas localmente. Não existe hotlink.
+As fotografias são servidas localmente. Não existe hotlink. A hero panorâmica é uma composição conceitual gerada a partir de uma foto real do ambiente; as demais imagens vieram da apresentação pública do estabelecimento.
 
 ## Desenvolvimento
 

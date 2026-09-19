@@ -1,17 +1,22 @@
 import { useState } from "react";
-import { ArrowDownRight, ArrowUpRight, Camera, Check, MapPin, Phone, Scissors, Star } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, Camera, Check, MapPin, Phone, Plus, Scissors, Star } from "lucide-react";
 import { Logo } from "./components/Logo";
 import { barbearia } from "./data/barbearia";
 
 const imagens = [
-  { src: "/images/black-belt-interior.jpg", alt: "Interior da Black Belt Barbearia com identidade inspirada em artes marciais" },
+  { src: "/images/black-belt-hero-panoramica.jpg", alt: "Composição panorâmica conceitual inspirada no interior da Black Belt Barbearia" },
   { src: "/images/black-belt-ritual.jpg", alt: "Ambiente e estrutura da Black Belt Barbearia" },
   { src: "/images/black-belt-assinatura.jpg", alt: "Espaço da Black Belt Barbearia em Santos" },
 ];
 
 export default function App() {
-  const [servicoSelecionado, setServicoSelecionado] = useState(0);
-  const servicoAtual = barbearia.servicos[servicoSelecionado];
+  const [servicosSelecionados, setServicosSelecionados] = useState<number[]>([0]);
+  const alternarServico = (indice: number) => {
+    setServicosSelecionados((atuais) =>
+      atuais.includes(indice) ? atuais.filter((item) => item !== indice) : [...atuais, indice],
+    );
+  };
+  const nomesSelecionados = servicosSelecionados.map((indice) => barbearia.servicos[indice].nome);
 
   return (
     <div className="site-shell">
@@ -67,34 +72,30 @@ export default function App() {
             <div><p className="rotulo">ESCOLHA SEU RITUAL</p><h2>Cuidado com<br />mentalidade de mestre.</h2></div>
             <p>Serviços pensados para transformar cuidado pessoal em constância — sem pressa, sem atalhos.</p>
           </div>
-          <div className="lista-servicos" role="radiogroup" aria-label="Escolha um serviço">
+          <div className="lista-servicos" role="group" aria-label="Escolha um ou mais serviços">
             {barbearia.servicos.map((servico, indice) => (
               <button
-                className={`servico${servicoSelecionado === indice ? " servico--selecionado" : ""}`}
+                className={`servico${servicosSelecionados.includes(indice) ? " servico--selecionado" : ""}`}
                 type="button"
-                role="radio"
-                aria-checked={servicoSelecionado === indice}
-                onClick={() => setServicoSelecionado(indice)}
+                role="checkbox"
+                aria-checked={servicosSelecionados.includes(indice)}
+                onClick={() => alternarServico(indice)}
                 key={servico.nome}
               >
-                <span>0{indice + 1}</span>
-                <h3>{servico.nome}</h3>
-                <p>{servico.descricao}</p>
-                <span className="servico__indicador" aria-hidden="true">
-                  {servicoSelecionado === indice ? <Check /> : <ArrowUpRight />}
-                </span>
+                <span className="servico__imagem"><img src={servico.imagem} alt="" loading="lazy" /></span>
+                <span className="servico__numero">0{indice + 1}</span>
+                <span className="servico__conteudo"><strong>{servico.nome}</strong><span>{servico.descricao}</span></span>
+                <span className="servico__indicador" aria-hidden="true">{servicosSelecionados.includes(indice) ? <Check /> : <Plus />}</span>
               </button>
             ))}
           </div>
           <div className="servicos__selecao" aria-live="polite">
             <div>
-              <small>RITUAL SELECIONADO</small>
-              <strong>{servicoAtual.nome}</strong>
-              <span>Próximo passo: escolha profissional, dia e horário.</span>
+              <small>{nomesSelecionados.length === 1 ? "RITUAL SELECIONADO" : "RITUAIS SELECIONADOS"}</small>
+              <strong>{nomesSelecionados.length ? nomesSelecionados.join(" + ") : "Escolha seus serviços"}</strong>
+              <span>{nomesSelecionados.length ? "Próximo passo: escolha profissional, dia e horário." : "Você pode combinar mais de um serviço."}</span>
             </div>
-            <a className="botao" href={barbearia.agendamentoUrl} target="_blank" rel="noreferrer">
-              Agendar {servicoAtual.nome.toLowerCase()} <ArrowUpRight size={18} aria-hidden="true" />
-            </a>
+            {nomesSelecionados.length > 0 && <a className="botao" href={barbearia.agendamentoUrl} target="_blank" rel="noreferrer">Continuar agendamento <ArrowUpRight size={18} aria-hidden="true" /></a>}
           </div>
         </section>
 

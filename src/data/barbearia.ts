@@ -20,14 +20,17 @@ export const barbearia = {
     {
       nome: "Corte",
       descricao: "Técnica, precisão e leitura do seu estilo para um acabamento à altura.",
+      imagem: "/images/black-belt-ritual.jpg",
     },
     {
       nome: "Barba",
       descricao: "Contorno, equilíbrio e cuidado completo para fortalecer sua presença.",
+      imagem: "/images/black-belt-interior.jpg",
     },
     {
       nome: "Assinaturas",
       descricao: "Planos para cuidar do visual quantas vezes quiser durante o mês.",
+      imagem: "/images/black-belt-assinatura.jpg",
     },
   ],
   depoimentos: [
